@@ -1,2 +1,2 @@
 # LampStackProject
-Repo for developing a remote database for POOSD  - Group 12
+Repo for developing a remote database for POOSD  - Group 12 test fork
