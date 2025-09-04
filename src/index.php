@@ -1,0 +1,112 @@
+<?php
+// basic site config
+$SITE_NAME = "POOS25";
+$CTA_LINK = "/app/login.php";
+$ALT_LINK = "/docs";
+?>
+
+<!-- Nikhil Patel Startup Style Webdev Workshop-->
+<!-- html head -->
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> <!--makes it viewable on mobile-->
+  <title><?= htmlspecialchars($SITE_NAME) ?></title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+
+<body>
+
+  <!-- Login Overlay -->
+  <div id="login-overlay" aria-hidden="true">
+    <div class="login-shell" role="dialog" aria-modal="true" aria-labelledby="login-title">
+      <button class="login-close" aria-label="Close login">&times;</button>
+      <h2 id="login-title">Welcome back</h2>
+      <p class="login-sub">Sign in to continue</p>
+
+      <form method="post" action="/auth/login.php" class="login-form">
+        <label>
+          <span>Username</span>
+          <input type="username" id="loginUsername" />
+        </label>
+        <label>
+          <span>Password</span>
+          <input type="password" id="loginPassword" />
+        </label>
+        <button class="btn-solid login-submit" type="submit" id="loginButton" onclick="doLogin();">Sign in</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- background stuff (SVG waves) made with svgwave.in -->
+  <svg class="bg-waves" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <!-- black background -->
+    <rect x="0" y="0" width="100" height="100" fill="#0b0b0b" />
+    <!-- left grey wave -->
+    <path d="M0,0 L10,0 C12,8 10,18 11,27 C12,36 16,39 18,45 C20,51 19,58 16,66 C14,72 12,78 15,86 L0,86 Z"
+      fill="#6b7280" opacity="1.00" />
+    <!-- left green wave -->
+    <path d="M0,0 L5,0 C6,7 5,16 5,25 C5,35 8,41 9,48 C10,55 9,62 7,70 C6,76 6,83 6,90 L0,100 Z" fill="#16a34a" />
+    <!-- bottom grey shelf -->
+    <path d="M0,86 C20,86 38,83 52,83 C65,83 75,86 85,91 C90,93 95,96 100,100 L0,100,10 Z" fill="#6b7280"
+      opacity="1.00" />
+    <!-- bottom green bump -->
+    <path d="M0,94 C28,92 43,90 60,92 C76,94 90,98 100,100 L0,100 Z" fill="#16a34a" />
+    <!-- bottom green bump overlay -->
+    <path d="M0,0 L5,0 C6,7 5,16 5,25 C5,35 8,41 9,48 C10,55 9,62 7,70 C6,76 6,90 6,90 L0,400 Z" fill="#16a34a" />
+  </svg>
+
+  <!-- page wrapper -->
+  <header class="site-header">
+    <div class="brand"><?= htmlspecialchars($SITE_NAME) ?></div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="https://github.com/soliveira3/LampStackProject" target="_blank">Github</a>
+      <a href="/temp2.php">Temp</a>
+      <a class="btn-outline" href="<?= htmlspecialchars($ALT_LINK) ?>">Docs</a>
+      <a class="btn-solid" href="<?= htmlspecialchars($CTA_LINK) ?>" data-open-login>Sign In</a>
+    </nav>
+  </header>
+
+  <main class="hero">
+    <section class="hero-card">
+      <h1>POOS LAMP Project</h1>
+      <p>TODO Change</p>
+      <div class="actions">
+        <a class="btn-solid" href="<?= htmlspecialchars($CTA_LINK) ?>" data-open-login>Get Started</a>
+        <a class="btn-ghost" href="<?= htmlspecialchars($ALT_LINK) ?>">Read the Docs</a>
+      </div>
+      <ul class="features">
+        <li>Feature 1</li>
+        <li>Feature 2</li>
+        <li>Feature 3</li>
+        <li>Works on Mobile?</li>
+      </ul>
+    </section>
+
+    <section class="cards">
+      <article class="card">
+        <h3>API</h3>
+        <p>Talk ab our API.</p>
+      </article>
+      <article class="card">
+        <h3>Auth</h3>
+        <p>Talk ab our Login System.</p>
+      </article>
+      <article class="card">
+        <h3>DB</h3>
+        <p>Talk ab our database.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p> Footer? IDK what to put here</p>
+  </footer>
+
+  <script src="/assets/js/main.js"></script>
+</body>
+
+</html>
