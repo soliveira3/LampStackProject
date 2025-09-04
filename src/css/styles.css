@@ -1,254 +1,358 @@
-body 
-{
-    background-color: #1a1a1a;
-    margin: 0;
-    padding: 0;
+/* ================================
+   Theme & Variables
+   ================================ */
+:root {
+  --green: #16a34a;
+  --green-2: #22c55e; /* hover */
+  --grey: #6b7280;
+  --black: #0b0b0b;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --card: #111315b3;
+  --radius: 18px;
 }
 
-#title 
-{
-    font-size: 40px;
-    width: 100%;
-    margin: 2% 5%;
-    text-align: center;
-    font-family: 'Ubuntu', sans-serif;
-    color: #4CAF50;
+/* ================================
+   Global Reset & Body
+   ================================ */
+* {
+  box-sizing: border-box;
 }
 
-#loginDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #2d2d2d;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+html,
+body {
+  height: 100%;
 }
 
-#loggedInDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #2d2d2d;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    margin-bottom: 20px;
+body {
+  margin: 0;
+  font: 16px/1.5 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+    Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji",
+    "Segoe UI Emoji";
+  color: var(--text);
+  background: var(--black);
+  overflow-x: hidden;
 }
 
-#accessUIDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #2d2d2d;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+/* ================================
+   Background SVG Waves
+   ================================ */
+.bg-waves {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
 }
 
-.buttons
-{
-    font-size: 30px;
-    border-radius: 25px;
-    width: 50%;
-    margin-left: 25%;
-    font-family: 'Ubuntu', sans-serif;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-bottom: 10px;
+.bg-rect {
+  fill: var(--black);
+}
+.wave-green {
+  fill: var(--green);
+}
+.wave-grey {
+  fill: var(--grey);
 }
 
-#searchContactButton, #showAllButton {
-    width: 35%;
-    margin-left: 5%;
-    margin-right: 5%;
-    display: inline-block;
+/* ================================
+   Header & Navigation
+   ================================ */
+.site-header {
+  position: sticky;
+  top: 0;
+  backdrop-filter: saturate(130%) blur(6px);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.35), transparent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  border-bottom: 1px solid #ffffff0f;
 }
 
-.buttons:hover{
-    background-color: #45a049;
-    opacity: 0.9;
+.brand {
+  font-weight: 700;
+  letter-spacing: 0.3px;
 }
 
-#loginName
-{
-	font-size: 30px;
-}
-#loginPassword
-{
-	font-size: 30px;
-}
-#searchText
-{
-	font-size: 30px;
-}
-#contactName
-{
-	font-size: 30px;
-}
-#contactPhone
-{
-	font-size: 30px;
-}
-#contactEmail
-{
-	font-size: 30px;
+nav {
+  display: flex;
+  gap: 14px;
+  align-items: center;
 }
 
-input[type="text"],input[type="password"],input[type="email"],input[type="tel"]{
-    border-radius: 25px;
-    text-align: center;
-    width: 80%;
-    margin-left: 10%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    background-color: #404040;
-    color: #ffffff;
-    border: 1px solid #4CAF50;
-    padding: 10px;
+nav a {
+  color: var(--text);
+  text-decoration: none;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
 }
 
-input[type="text"]::placeholder,
-input[type="password"]::placeholder,
-input[type="email"]::placeholder,
-input[type="tel"]::placeholder {
-    color: #b0b0b0;
+nav a:hover {
+  opacity: 1;
 }
 
-#inner-title{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #4CAF50;
+/* ================================
+   Buttons
+   ================================ */
+.btn-solid,
+.btn-outline,
+.btn-ghost {
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  display: inline-block;
+  border: 1px solid transparent;
+  transition: 0.2s ease, transform 0.15s ease;
+  text-decoration: none;
 }
 
-#loginResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #ff6b6b;
+.btn-solid {
+  background: var(--green);
+  color: #031;
 }
 
-#userName{
-    display: inline-block;
-    width: 80%;
-    margin-left: 10%;
-    text-align: center;
-    color: #ffffff;
-    font-family: 'Ubuntu', sans-serif;
+.btn-solid:hover {
+  background: var(--green-2);
+  transform: translateY(-1px);
 }
 
-#logoutButton{
-    width: 20%;
-    margin-left: 40%;
+.btn-outline {
+  border-color: #ffffff2a;
+  color: var(--text);
 }
 
-select{
-    width: 30%;
-    margin-left: 35%;
-    margin-top: 2%;
-    font-size: 0.75em;
-    font-family: 'Ubuntu', sans-serif;
-    background-color: #404040;
-    color: #ffffff;
-    border: 1px solid #4CAF50;
-    border-radius: 5px;
-    padding: 10px;
+.btn-outline:hover {
+  border-color: #ffffff55;
+  background: #ffffff05;
 }
 
-#contactSearchResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-top: 2%;
-    margin-bottom: 1%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #4CAF50;
+.btn-ghost {
+  background: #ffffff12;
+  color: var(--text);
 }
 
-#contactAddResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-top: 2%;
-    margin-bottom: 1%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #4CAF50;
+.btn-ghost:hover {
+  background: #ffffff22;
 }
 
-#contactList{
-    background-color: #404040;
-    border: 1px solid #4CAF50;
-    border-radius: 10px;
-    padding: 20px;
-    margin-top: 20px;
-    color: #ffffff;
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 0.8em;
+/* ================================
+   Hero Section
+   ================================ */
+.hero {
+  max-width: 1100px;
+  margin: 6rem auto 3rem;
+  padding: 0 24px;
 }
 
-.contact-item{
-    background-color: #2d2d2d;
-    border: 1px solid #4CAF50;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.hero-card {
+  background: var(--card);
+  border: 1px solid #ffffff1a;
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: 0 20px 60px #00000080, inset 0 1px #ffffff0f;
+  backdrop-filter: blur(6px);
+  max-width: 720px;
 }
 
-.contact-info{
-    flex: 1;
+.hero-card h1 {
+  font-size: clamp(28px, 4vw, 44px);
+  margin: 0 0 8px;
 }
 
-.contact-actions{
-    display: flex;
-    gap: 10px;
+.hero-card p {
+  margin: 0 0 16px;
+  color: #e8f5ea;
 }
 
-.contact-actions button{
-    font-size: 16px;
-    padding: 5px 10px;
-    border-radius: 15px;
-    border: none;
-    cursor: pointer;
-    font-family: 'Ubuntu', sans-serif;
+.actions {
+  display: flex;
+  gap: 10px;
+  margin: 12px 0 8px;
+  flex-wrap: wrap;
 }
 
-.edit-btn{
-    background-color: #4CAF50;
-    color: white;
+/* Features list */
+.features {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-.delete-btn{
-    background-color: #ff6b6b;
-    color: white;
+.features li {
+  background: #ffffff10;
+  border: 1px solid #ffffff18;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.9rem;
 }
 
-.edit-btn:hover{
-    background-color: #45a049;
+/* ================================
+   Info Cards (API/Auth/DB)
+   ================================ */
+.cards {
+  margin: 22px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
 }
 
-.delete-btn:hover{
-    background-color: #ff5252;
+.card {
+  background: #0f1116e0;
+  border: 1px solid #ffffff12;
+  border-radius: var(--radius);
+  padding: 18px;
+  min-height: 120px;
+  box-shadow: 0 12px 30px #00000070;
+}
+
+.card h3 {
+  margin: 0 0 6px;
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* ================================
+   Footer
+   ================================ */
+.site-footer {
+  margin: 60px 0 20px;
+  text-align: center;
+  color: #ffffffb8;
+  font-size: 0.9rem;
+}
+
+/* ================================
+   Responsive
+   ================================ */
+@media (max-width: 900px) {
+  .hero {
+    margin-top: 4.5rem;
+  }
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* ================================
+   Login Overlay
+   ================================ */
+#login-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  display: grid;
+  place-items: start center;
+  padding: 6vh 16px;
+  z-index: 50;
+
+  /* hidden by default */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+}
+
+#login-overlay.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.25s ease;
+}
+
+.login-shell {
+  width: min(520px, 92vw);
+  background: var(--card);
+  border: 1px solid #ffffff24;
+  border-radius: var(--radius);
+  box-shadow: 0 30px 80px #000000a6, inset 0 1px #ffffff10;
+  padding: 22px 22px 26px;
+
+  transform: translateY(-18px);
+  opacity: 0;
+  transition: transform 0.28s ease, opacity 0.28s ease;
+}
+
+#login-overlay.open .login-shell {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* login header bits */
+.login-close {
+  appearance: none;
+  border: 0;
+  background: #ffffff12;
+  color: var(--text);
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  float: right;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.login-close:hover {
+  background: #ffffff22;
+}
+
+#login-title {
+  margin: 6px 0 4px;
+  font-size: clamp(22px, 3.6vw, 30px);
+}
+
+.login-sub {
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+
+/* form */
+.login-form {
+  display: grid;
+  gap: 12px;
+}
+
+.login-form label {
+  display: grid;
+  gap: 6px;
+}
+
+.login-form label span {
+  font-size: 0.9rem;
+  color: #cfe3d4;
+}
+
+.login-form input {
+  background: #0d1016;
+  color: var(--text);
+  border: 1px solid #ffffff1a;
+  border-radius: 12px;
+  padding: 12px 12px;
+}
+
+.login-form input:focus {
+  outline: 2px solid #22c55e66;
+  border-color: #22c55e66;
+}
+
+.login-submit {
+  width: 100%;
+  margin-top: 6px;
+}
+
+/* reduce motion preference */
+@media (prefers-reduced-motion: reduce) {
+  #login-overlay,
+  .login-shell {
+    transition: none !important;
+  }
 }

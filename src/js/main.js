@@ -29,7 +29,7 @@
     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden', 'false');
     // focus first input for accessibility
-    const first = overlay.querySelector('input[name="email"]');
+    const first = overlay.querySelector('input[name="username"]');
     setTimeout(() => first?.focus(), 60);
   }
   function closeLogin(){
@@ -59,7 +59,7 @@ function doLogin()
 	document.getElementById("loginResult").innerHTML = "";
 
     //TODO Set up hashing to secure login info
-	let tmp = {login:login,password:password};
+	let tmp = {username:login,password:password};
 //	var tmp = {login:login,password:hash};
 	let jsonPayload = JSON.stringify( tmp );
 	
@@ -88,7 +88,8 @@ function doLogin()
 
 				saveCookie();
 	
-				window.location.href = "color.html";
+				// TODO: Redirect to dashboard or main app page
+				// window.location.href = "dashboard.html";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -133,7 +134,7 @@ function readCookie()
 	
 	if( userId < 0 )
 	{
-		window.location.href = "index.php";
+		window.location.href = "index.html";
 	}
 	else
 	{
@@ -147,7 +148,7 @@ function doLogout()
 	firstName = "";
 	lastName = "";
 	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-	window.location.href = "index.php";
+	window.location.href = "index.html";
 }
 
 function addColor()
