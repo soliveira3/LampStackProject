@@ -4,7 +4,7 @@ Repo for developing a remote database for POOSD  - Group 12 test fork
 # Roles:
 [Ori Ohayon](https://github.com/oriohayon15) - backend  
 [Samuel Oliveira](https://github.com/soliveira3) - backend  
-[Collin Pastika](https://github.com/cjpastika) -  frontend
+[Collin Pastika](https://github.com/cjpastika) -  frontend  
 [Nikhil Patel](https://github.com/ItsNickel) - frontend  
 [Samantha Quan](https://github.com/samanthaquan) - database
 
