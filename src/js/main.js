@@ -39,7 +39,7 @@
 })();
 
 // Code from the colors lab
-const urlBase = 'http://COP4331-5.com/LAMPAPI'; //TODO Change URL
+const urlBase = 'http://samueloliveira.xyz/LAMPAPI'; //TODO Change URL
 const extension = 'php';
 
 let userId = 0;
