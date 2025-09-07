@@ -2,6 +2,46 @@ let userId = 0;
 let firstName = "";
 let lastName = "";
 
+// login interface
+(function () {
+  const overlay = document.getElementById("login-overlay");
+  if (!overlay) return;
+
+  // openers: any element with data-open-login
+  document.querySelectorAll("[data-open-login]").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      // if it's an <a>, stop navigation
+      if (el.tagName === "A") e.preventDefault();
+      openLogin();
+    });
+  });
+
+  // close button
+  overlay.querySelector(".login-close")?.addEventListener("click", closeLogin);
+
+  // click outside the card closes
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closeLogin();
+  });
+
+  // ESC to close
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && overlay.classList.contains("open")) closeLogin();
+  });
+
+  function openLogin() {
+    overlay.classList.add("open");
+    overlay.setAttribute("aria-hidden", "false");
+    // focus first input for accessibility
+    const first = overlay.querySelector('input[name="username"]');
+    setTimeout(() => first?.focus(), 60);
+  }
+  function closeLogin() {
+    overlay.classList.remove("open");
+    overlay.setAttribute("aria-hidden", "true");
+  }
+})();
+
 // Local storage for contacts (temporary - not persistent across browser sessions)
 let contacts = [
   { id: 1, name: "John Doe", phone: "(555) 123-4567", email: "john.doe@email.com" },
