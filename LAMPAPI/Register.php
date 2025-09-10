@@ -9,10 +9,13 @@
         returnWithError("Provide required fields -> (firstName, lastName, login, password)");
 
 
-    $firstName = $inData["firstName"];
-    $lastName = $inData["lastName"];
-    $login = $inData["login"];
+    $firstName = trim($inData["firstName"]);
+    $lastName = trim($inData["lastName"]);
+    $login = trim($inData["login"]);
     $password = $inData["password"];
+    
+    // Hash the password for security
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 
     // Connecting the the database
@@ -35,7 +38,7 @@
         else
         {
             $stmt = $conn->prepare("INSERT INTO Users (firstName, lastName, Login, Password) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
+            $stmt->bind_param("ssss", $firstName, $lastName, $login, $hashedPassword);
 
             // What info do I want to return
             if ($stmt->execute())

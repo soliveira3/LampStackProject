@@ -38,6 +38,57 @@
             Sign in
           </button>
           <div id="loginResult"></div>
+          <p class="login-footer">
+            Don't have an account? <a href="#" onclick="openRegister()">Sign up here</a>
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Register Overlay -->
+    <div id="register-overlay" aria-hidden="true">
+      <div
+        class="login-shell"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="register-title"
+      >
+        <button class="register-close" aria-label="Close registration">&times;</button>
+        <h2 id="register-title">Create Account</h2>
+        <p class="login-sub">Sign up to get started</p>
+
+        <form method="post" action="#" class="login-form" onsubmit="event.preventDefault(); doRegister();">
+          <label>
+            <span>First Name</span>
+            <input type="text" id="regFirstName" required />
+          </label>
+          <label>
+            <span>Last Name</span>
+            <input type="text" id="regLastName" required />
+          </label>
+          <label>
+            <span>Username</span>
+            <input type="text" id="regLogin" required />
+          </label>
+          <label>
+            <span>Password</span>
+            <input type="password" id="regPassword" required />
+          </label>
+          <label>
+            <span>Confirm Password</span>
+            <input type="password" id="regConfirmPassword" required />
+          </label>
+          <button
+            class="btn-solid login-submit"
+            type="submit"
+            id="registerButton"
+          >
+            Create Account
+          </button>
+          <div id="registerResult"></div>
+          <p class="login-footer">
+            Already have an account? <a href="#" onclick="openLogin()">Sign in here</a>
+          </p>
         </form>
       </div>
     </div>
@@ -70,6 +121,7 @@
         >
         <a href="#">Temp</a>
         <a class="btn-outline" href="/docs">Docs</a>
+        <a class="btn-outline" href="#" data-open-register>Register</a>
         <a class="btn-solid" href="#" data-open-login>Sign In</a>
       </nav>
     </header>

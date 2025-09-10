@@ -1,12 +1,20 @@
 <?php
 
+	require __DIR__ . '/cors.php';
+
 	$inData = json_decode(file_get_contents('php://input'), true);
 
 	$id = 0;
 	$firstName = "";
 	$lastName = "";
-	$login = $inData["login"];
+	$login = trim($inData["login"]);
 	$password = $inData["password"];
+	
+	// Input validation
+	if (empty($login) || empty($password)) {
+		returnWithError("Please provide both login and password");
+		return;
+	}
 
 	// Logging into the database
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
@@ -15,16 +23,22 @@
 
 	else
 	{
-		$stmt = $conn->prepare("SELECT ID, firstName, lastName FROM Users WHERE Login=? AND Password =?");
-		$stmt->bind_param("ss", $login, $password);
+		$stmt = $conn->prepare("SELECT ID, firstName, lastName, Password FROM Users WHERE Login=?");
+		$stmt->bind_param("s", $login);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
 		if( $row = $result->fetch_assoc()  )
-			returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
-
+		{
+			// Verify the password against the stored hash
+			if (password_verify($password, $row['Password'])) {
+				returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
+			} else {
+				returnWithError("Invalid login credentials");
+			}
+		}
 		else
-			returnWithError("No Records Found");
+			returnWithError("Invalid login credentials");
 
 		$stmt->close();
 		$conn->close();
