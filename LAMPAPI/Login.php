@@ -8,7 +8,7 @@
 	$firstName = "";
 	$lastName = "";
 	$login = trim($inData["login"]);
-	$password = $inData["password"];
+	$password = $inData["password"]; // Already hashed by frontend MD5
 	
 	// Input validation
 	if (empty($login) || empty($password)) {
@@ -23,19 +23,14 @@
 
 	else
 	{
-		$stmt = $conn->prepare("SELECT ID, firstName, lastName, Password FROM Users WHERE Login=?");
-		$stmt->bind_param("s", $login);
+		$stmt = $conn->prepare("SELECT ID, firstName, lastName FROM Users WHERE Login=? AND Password=?");
+		$stmt->bind_param("ss", $login, $password);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
 		if( $row = $result->fetch_assoc()  )
 		{
-			// Verify the password against the stored hash
-			if (password_verify($password, $row['Password'])) {
-				returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
-			} else {
-				returnWithError("Invalid login credentials");
-			}
+			returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
 		}
 		else
 			returnWithError("Invalid login credentials");

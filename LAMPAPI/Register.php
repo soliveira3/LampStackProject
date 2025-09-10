@@ -12,10 +12,7 @@
     $firstName = trim($inData["firstName"]);
     $lastName = trim($inData["lastName"]);
     $login = trim($inData["login"]);
-    $password = $inData["password"];
-    
-    // Hash the password for security
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $password = $inData["password"]; // Already hashed by frontend MD5
 
 
     // Connecting the the database
@@ -38,7 +35,7 @@
         else
         {
             $stmt = $conn->prepare("INSERT INTO Users (firstName, lastName, Login, Password) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssss", $firstName, $lastName, $login, $hashedPassword);
+            $stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
 
             // What info do I want to return
             if ($stmt->execute())

@@ -131,12 +131,15 @@ function doRegister() {
     return;
   }
 
+  // Hash password with MD5 before sending
+  let hashedPassword = md5(password);
+  
   // Make API call to register endpoint
   let tmp = { 
     firstName: firstName, 
     lastName: lastName, 
     login: login, 
-    password: password 
+    password: hashedPassword 
   };
   let jsonPayload = JSON.stringify(tmp);
 
@@ -194,8 +197,11 @@ function doLogin() {
     return;
   }
 
+  // Hash password with MD5 before sending
+  let hashedPassword = md5(password);
+  
   // Make actual API call to login endpoint
-  let tmp = { login: login, password: password };
+  let tmp = { login: login, password: hashedPassword };
   let jsonPayload = JSON.stringify(tmp);
 
   let url = 'LAMPAPI/Login.php';
