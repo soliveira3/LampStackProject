@@ -213,8 +213,8 @@ nav a:hover {
   }
 }
 
-/* Login Overlay */
-#login-overlay {
+/* Login and Register Overlays */
+#login-overlay, #register-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, .35);
@@ -225,7 +225,7 @@ nav a:hover {
   padding: 6vh 16px;
   z-index: 50;
 
-  /* Make login hidden by default */
+  /* Make overlays hidden by default */
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -233,7 +233,7 @@ nav a:hover {
 }
 
 /* Visible when .open is added, fade in and allow interaction */
-#login-overlay.open {
+#login-overlay.open, #register-overlay.open {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
@@ -255,13 +255,13 @@ nav a:hover {
   transition: transform .28s ease, opacity .28s ease;
 }
 
-#login-overlay.open .login-shell {
+#login-overlay.open .login-shell, #register-overlay.open .login-shell {
   transform: translateY(0);
   opacity: 1;
 }
 
 /* Header bits */
-.login-close {
+.login-close, .register-close {
   appearance: none;
   border: 0;
   background: #ffffff12;
@@ -273,7 +273,7 @@ nav a:hover {
   cursor: pointer;
 }
 
-.login-close:hover {
+.login-close:hover, .register-close:hover {
   background: #ffffff22;
 }
 
@@ -329,16 +329,34 @@ nav a:hover {
   margin-top: 6px;
 }
 
-#loginResult {
+#loginResult, #registerResult {
   color: #ff6b6b;
   font-size: .9rem;
   text-align: center;
   margin-top: 8px;
 }
 
+.login-footer {
+  text-align: center;
+  margin-top: 16px;
+  font-size: .9rem;
+  color: var(--muted);
+}
+
+.login-footer a {
+  color: var(--green);
+  text-decoration: none;
+}
+
+.login-footer a:hover {
+  color: var(--green-2);
+  text-decoration: underline;
+}
+
 /* Reduce motion preference */
 @media (prefers-reduced-motion: reduce) {
   #login-overlay,
+  #register-overlay,
   .login-shell {
     transition: none !important;
   }

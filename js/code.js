@@ -55,33 +55,47 @@ let lastName = "";
     }
   });
 
-  window.openLogin = function() {
-    closeRegister();
-    loginOverlay.classList.add("open");
-    loginOverlay.setAttribute("aria-hidden", "false");
-    // focus first input for accessibility
-    const first = loginOverlay.querySelector('input[name="username"]');
-    setTimeout(() => first?.focus(), 60);
+  function openLogin() {
+    if (registerOverlay) closeRegister();
+    if (loginOverlay) {
+      loginOverlay.classList.add("open");
+      loginOverlay.setAttribute("aria-hidden", "false");
+      // focus first input for accessibility
+      const first = loginOverlay.querySelector('input[name="username"]');
+      setTimeout(() => first?.focus(), 60);
+    }
   }
   
-  window.closeLogin = function() {
-    loginOverlay.classList.remove("open");
-    loginOverlay.setAttribute("aria-hidden", "true");
+  function closeLogin() {
+    if (loginOverlay) {
+      loginOverlay.classList.remove("open");
+      loginOverlay.setAttribute("aria-hidden", "true");
+    }
   }
 
-  window.openRegister = function() {
-    closeLogin();
-    registerOverlay.classList.add("open");
-    registerOverlay.setAttribute("aria-hidden", "false");
-    // focus first input for accessibility
-    const first = registerOverlay.querySelector('#regFirstName');
-    setTimeout(() => first?.focus(), 60);
+  function openRegister() {
+    if (loginOverlay) closeLogin();
+    if (registerOverlay) {
+      registerOverlay.classList.add("open");
+      registerOverlay.setAttribute("aria-hidden", "false");
+      // focus first input for accessibility
+      const first = registerOverlay.querySelector('#regFirstName');
+      setTimeout(() => first?.focus(), 60);
+    }
   }
   
-  window.closeRegister = function() {
-    registerOverlay.classList.remove("open");
-    registerOverlay.setAttribute("aria-hidden", "true");
+  function closeRegister() {
+    if (registerOverlay) {
+      registerOverlay.classList.remove("open");
+      registerOverlay.setAttribute("aria-hidden", "true");
+    }
   }
+
+  // Make functions globally available
+  window.openLogin = openLogin;
+  window.closeLogin = closeLogin;
+  window.openRegister = openRegister;
+  window.closeRegister = closeRegister;
 })();
 
 // Local storage for contacts (temporary - not persistent across browser sessions)
