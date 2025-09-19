@@ -100,9 +100,9 @@ let lastName = "";
 
 // Local storage for contacts (temporary - not persistent across browser sessions)
 let contacts = [
-  { id: 1, name: "John Doe", phone: "(555) 123-4567", email: "john.doe@email.com" },
-  { id: 2, name: "Jane Smith", phone: "(555) 987-6543", email: "jane.smith@email.com" },
-  { id: 3, name: "Bob Johnson", phone: "(555) 456-7890", email: "bob.johnson@email.com" }
+  { id: 1, userId: 1, firstName: "John", lastName: "Doe", phone: "(555) 123-4567", email: "john.doe@email.com" },
+  { id: 2, userId: 1, firstName: "Jane", lastName: "Smith", phone: "(555) 987-6543", email: "jane.smith@email.com" },
+  { id: 3, userId: 1, firstName: "Bob", lastName: "Johnson", phone: "(555) 456-7890", email: "bob.johnson@email.com" }
 ];
 let nextContactId = 4;
 
@@ -284,10 +284,17 @@ function addContact() {
     return;
   }
 
-  // Add contact to local array
+  // Parse name into firstName and lastName
+  let nameParts = newName.trim().split(" ");
+  let firstName = nameParts[0] || "";
+  let lastName = nameParts.slice(1).join(" ") || "";
+
+  // Add contact to local array with new structure
   let newContact = {
     id: nextContactId++,
-    name: newName,
+    userId: userId, // Use current logged-in user's ID
+    firstName: firstName,
+    lastName: lastName,
     phone: newPhone,
     email: newEmail
   };
@@ -317,9 +324,10 @@ function searchContact() {
     return;
   }
 
-  // Filter contacts based on search term
+  // Filter contacts based on search term - search firstName, lastName, phone, and email
   let filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(srch) ||
+    contact.firstName.toLowerCase().includes(srch) ||
+    contact.lastName.toLowerCase().includes(srch) ||
     contact.phone.includes(srch) ||
     contact.email.toLowerCase().includes(srch)
   );
@@ -334,7 +342,7 @@ function searchContact() {
       contactHTML += `
 				<div class="contact-item">
 					<div class="contact-info">
-						<strong>${contact.name}</strong><br>
+						<strong>${contact.firstName} ${contact.lastName}</strong><br>
 						Phone: ${contact.phone}<br>
 						Email: ${contact.email}
 					</div>
@@ -358,8 +366,8 @@ function editContact(contactId) {
     return;
   }
 
-  // Pre-fill form with contact data
-  document.getElementById("contactName").value = contact.name;
+  // Pre-fill form with contact data - combine firstName and lastName for the single name field
+  document.getElementById("contactName").value = `${contact.firstName} ${contact.lastName}`;
   document.getElementById("contactPhone").value = contact.phone;
   document.getElementById("contactEmail").value = contact.email;
 
@@ -392,12 +400,19 @@ function updateContact(contactId) {
     return;
   }
 
+  // Parse name into firstName and lastName
+  let nameParts = newName.trim().split(" ");
+  let firstName = nameParts[0] || "";
+  let lastName = nameParts.slice(1).join(" ") || "";
+
   // Find and update contact
   let contactIndex = contacts.findIndex(c => c.id === contactId);
   if (contactIndex !== -1) {
     contacts[contactIndex] = {
       id: contactId,
-      name: newName,
+      userId: contacts[contactIndex].userId, // Keep existing userId
+      firstName: firstName,
+      lastName: lastName,
       phone: newPhone,
       email: newEmail
     };
@@ -475,7 +490,7 @@ function showAllContacts() {
       contactHTML += `
 				<div class="contact-item">
 					<div class="contact-info">
-						<strong>${contact.name}</strong><br>
+						<strong>${contact.firstName} ${contact.lastName}</strong><br>
 						Phone: ${contact.phone}<br>
 						Email: ${contact.email}
 					</div>
