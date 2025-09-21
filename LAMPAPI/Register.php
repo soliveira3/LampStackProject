@@ -9,10 +9,10 @@
         returnWithError("Provide required fields -> (firstName, lastName, login, password)");
 
 
-    $firstName = $inData["firstName"];
-    $lastName = $inData["lastName"];
-    $login = $inData["login"];
-    $password = $inData["password"];
+    $firstName = trim($inData["firstName"]);
+    $lastName = trim($inData["lastName"]);
+    $login = trim($inData["login"]);
+    $password = $inData["password"]; // Already hashed by frontend MD5
 
 
     // Connecting the the database

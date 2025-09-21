@@ -1,12 +1,20 @@
 <?php
 
+	require __DIR__ . '/cors.php';
+
 	$inData = json_decode(file_get_contents('php://input'), true);
 
 	$id = 0;
 	$firstName = "";
 	$lastName = "";
-	$login = $inData["login"];
-	$password = $inData["password"];
+	$login = trim($inData["login"]);
+	$password = $inData["password"]; // Already hashed by frontend MD5
+	
+	// Input validation
+	if (empty($login) || empty($password)) {
+		returnWithError("Please provide both login and password");
+		return;
+	}
 
 	// Logging into the database
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
@@ -15,16 +23,17 @@
 
 	else
 	{
-		$stmt = $conn->prepare("SELECT ID, firstName, lastName FROM Users WHERE Login=? AND Password =?");
+		$stmt = $conn->prepare("SELECT ID, firstName, lastName FROM Users WHERE Login=? AND Password=?");
 		$stmt->bind_param("ss", $login, $password);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
 		if( $row = $result->fetch_assoc()  )
+		{
 			returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
-
+		}
 		else
-			returnWithError("No Records Found");
+			returnWithError("Invalid login credentials");
 
 		$stmt->close();
 		$conn->close();
