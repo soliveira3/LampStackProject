@@ -28,11 +28,15 @@
 
         $stmt->bind_param("sssss", $userId, $firstName, $lastName, $phone, $email);
 
-        $stmt->execute();
+        if ($stmt->execute()) {
+            returnWithSuccess("Contact added successfully");
+        } else {
+            returnWithError($stmt->error);
+        }
+        
         $stmt->close();
         $conn->close();
-
-        returnWithError("");
+        
     }
 
     function getRequestInfo()
@@ -49,6 +53,11 @@
     function returnWithError($err)
     {
         $retValue = '{"error":"' . $err . '"}';
+        sendResultInfoAsJson($retValue);
+    }
+    function returnWithSuccess($msg)
+    {
+        $retValue = '{"message":"' . $msg . '","error":""}';
         sendResultInfoAsJson($retValue);
     }
 ?>
