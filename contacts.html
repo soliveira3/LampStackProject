@@ -60,10 +60,10 @@
                 <input type="text" id="searchText" class="input-chunk" />
                 <!-- TODO Should we add placehold text
 				<input type="text" id="searchText" class="input-chunk" placeholder="Search contacts by name, phone, or email"> -->
-                <button type="button" id="searchContactButton" class="btn-outline" onclick="SearchContact()">
+                <button type="button" id="searchContactButton" class="btn-outline" onclick="searchContact()">
                     Search
                 </button>
-                <button type="button" id="showAllButton" class="btn-ghost" onclick="ShowAllContacts()">
+                <button type="button" id="showAllButton" class="btn-ghost" onclick="showAllContacts()">
                     Show All
                 </button>
                 <!-- Maybe open the add form card below -->
@@ -73,7 +73,7 @@
 
             <!-- Chips for quick filters (purely cosmetic atm, wire to the JS if we want) -->
             <ul class="features">
-                <li class="chip" onclick="ShowAllContacts()">All</li>
+                <li class="chip" onclick="showAllContacts()">All</li>
                 <li class="chip">Recently added</li>
                 <li class="chip">With email</li>
                 <li class="chip">With phone</li>
@@ -100,7 +100,7 @@
                 Use the form below to add a new person to your list.
             </p>
 
-            <form class="contact-form" onsubmit="AddContact(); return false;">
+            <form class="contact-form" onsubmit="addContact(); return false;">
                 <div class="form-row">
                     <label>
                         <span>First Name</span>

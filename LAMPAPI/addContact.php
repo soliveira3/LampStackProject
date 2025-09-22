@@ -33,10 +33,10 @@
         } else {
             returnWithError($stmt->error);
         }
-        
+
         $stmt->close();
         $conn->close();
-        
+
     }
 
     function getRequestInfo()

@@ -9,7 +9,7 @@
 	$lastName = "";
 	$login = trim($inData["login"]);
 	$password = $inData["password"]; // Already hashed by frontend MD5
-	
+
 	// Input validation
 	if (empty($login) || empty($password)) {
 		returnWithError("Please provide both login and password");
