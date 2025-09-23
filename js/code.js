@@ -98,13 +98,7 @@ let lastName = "";
     window.closeRegister = closeRegister;
 })();
 
-// Local storage for contacts (temporary - not persistent across browser sessions)
-let contacts = [
-    { id: 1, userId: 1, firstName: "John", lastName: "Doe", phone: "(555) 123-4567", email: "john.doe@email.com" },
-    { id: 2, userId: 1, firstName: "Jane", lastName: "Smith", phone: "(555) 987-6543", email: "jane.smith@email.com" },
-    { id: 3, userId: 1, firstName: "Bob", lastName: "Johnson", phone: "(555) 456-7890", email: "bob.johnson@email.com" }
-];
-let nextContactId = 4;
+
 
 function doRegister() {
     let firstName = document.getElementById("regFirstName").value.trim();
@@ -182,6 +176,8 @@ function doRegister() {
     }
 }
 
+
+
 function doLogin() {
     userId = 0;
     firstName = "";
@@ -235,12 +231,16 @@ function doLogin() {
     }
 }
 
+
+
 function saveCookie() {
     let minutes = 20;
     let date = new Date();
     date.setTime(date.getTime() + (minutes * 60 * 1000));
     document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
 }
+
+
 
 function readCookie() {
     userId = -1;
@@ -265,6 +265,8 @@ function readCookie() {
     }
 }
 
+
+
 function doLogout() {
     userId = 0;
     firstName = "";
@@ -274,43 +276,52 @@ function doLogout() {
 }
 
 
-function addContact() {
-    const firstNameEl = document.getElementById("contactFirstName");
-    const lastNameEl = document.getElementById("contactLastName");
-    const phoneEl = document.getElementById("contactPhone");
-    const emailEl = document.getElementById("contactEmail");
-    const resultEl = document.getElementById("contactAddResult");
 
-    if (!firstNameEl || !lastNameEl || !phoneEl || !emailEl || !resultEl) {
-        console.error("One or more contact form elements are missing.");
-        if (resultEl) resultEl.innerHTML = "Missing fields";
+function addContact()
+{
+    let newFirstName = document.getElementById("contactFirstName").value;
+    let newLastName = document.getElementById("contactLastName").value;
+    let newPhone = document.getElementById("contactPhone").value;
+    let newEmail = document.getElementById("contactEmail").value;
+    document.getElementById("contactAddResult").innerHTML = "";
+
+    if (newFirstName.trim() === "" || newLastName.trim() === "")
+    {
+        document.getElementById("contactAddResult").innerHTML = "Please enter both First and Last names";
         return;
     }
 
-    let newFirstName = firstNameEl.value;
-    let newLastName = lastNameEl.value;
-    let newPhone = phoneEl.value;
-    let newEmail = emailEl.value;
-    resultEl.innerHTML = "";
+    // Make actual API call to login endpoint
+    let tmp = { userId: userId, firstName: newFirstName, lastName: newLastName, phone: newPhone, email: newEmail };
+    let jsonPayload = JSON.stringify(tmp);
+    let url = 'LAMPAPI/addContact.php';
 
-    if (newFirstName.trim() === "" || newLastName === "") {
-        resultEl.innerHTML = "First and Last Name Required";
-        return;
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try
+    {
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let jsonObject = JSON.parse(xhr.responseText);
+
+                if (jsonObject.error === "")
+                {
+                    // Successful login
+                    document.getElementById("contactAddResult").innerHTML = "Contact has been added successfully";
+                    saveCookie();
+                    window.location.href = "contacts.html";
+                }
+
+                else document.getElementById("addContact Result").innerHTML = jsonObject.error;
+            }
+        };
+        xhr.send(jsonPayload);
+
+    } catch (err) {
+        document.getElementById("loginResult").innerHTML = "Connection error. Please try again.";
     }
-
-    // Add contact to local array with new structure
-    let newContact = {
-        id: nextContactId++,
-        userId: userId, // Use current logged-in user's ID
-        firstName: newFirstName,
-        lastName: newLastName,
-        phone: newPhone,
-        email: newEmail
-    };
-
-    contacts.push(newContact);
-
-    document.getElementById("contactAddResult").innerHTML = "Contact has been added successfully";
 
     // Clear form fields
     document.getElementById("contactFirstName").value = "";
@@ -320,26 +331,26 @@ function addContact() {
 
     // Refresh search results if there's a current search
     let searchText = document.getElementById("searchText").value;
-    if (searchText.trim() !== "") {
-        searchContact();
-    }
+    if (searchText.trim() !== "") searchContact();
 }
 
+
+
 function searchContact() {
-    let srch = document.getElementById("searchText").value.toLowerCase();
+    let search = document.getElementById("searchText").value.toLowerCase();
     document.getElementById("contactSearchResult").innerHTML = "";
 
-    if (srch.trim() === "") {
+    if (search.trim() === "") {
         document.getElementById("contactList").innerHTML = "";
         return;
     }
 
     // Filter contacts based on search term - search firstName, lastName, phone, and email
     let filteredContacts = contacts.filter(contact =>
-        contact.firstName.toLowerCase().includes(srch) ||
-        contact.lastName.toLowerCase().includes(srch) ||
-        contact.phone.includes(srch) ||
-        contact.email.toLowerCase().includes(srch)
+        contact.firstName.toLowerCase().includes(search) ||
+        contact.lastName.toLowerCase().includes(search) ||
+        contact.phone.includes(search) ||
+        contact.email.toLowerCase().includes(search)
     );
 
     let contactHTML = "";
@@ -349,8 +360,7 @@ function searchContact() {
     } else {
         for (let i = 0; i < filteredContacts.length; i++) {
             let contact = filteredContacts[i];
-            contactHTML +=
-            `
+            contactHTML += `
 				<div class="contact-item">
 					<div class="contact-info">
 						<strong>${contact.firstName} ${contact.lastName}</strong><br>
@@ -369,6 +379,8 @@ function searchContact() {
     document.getElementById("contactList").innerHTML = contactHTML;
     document.getElementById("contactSearchResult").innerHTML = `Found ${filteredContacts.length} contact(s)`;
 }
+
+
 
 function editContact(contactId) {
     let contact = contacts.find(c => c.id === contactId);
@@ -443,6 +455,8 @@ function updateContact(contactId) {
     }
 }
 
+
+
 function cancelEdit() {
     // Clear form fields
     document.getElementById("contactName").value = "";
@@ -463,6 +477,8 @@ function cancelEdit() {
     // Clear result message
     document.getElementById("contactAddResult").innerHTML = "";
 }
+
+
 
 function deleteContact(contactId) {
     let contact = contacts.find(c => c.id === contactId);
@@ -486,6 +502,8 @@ function deleteContact(contactId) {
         alert(`${contact.name} has been deleted successfully`);
     }
 }
+
+
 
 // Function to show all contacts
 function showAllContacts() {
