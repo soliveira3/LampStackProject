@@ -11,7 +11,7 @@
     else
     {
         $stmt = $conn->prepare
-        ("SELECT * from Contacts WHERE (FirstName = ? OR LastName = ?) AND UserID = ?");
+        ("SELECT * from Contacts WHERE (FirstName = ? OR LastName = ? OR Phone = ? OR Email = ?) AND UserID = ?");
 
         if (!$stmt)
         {
@@ -20,7 +20,7 @@
             exit;
         }
 
-        $stmt->bind_param("ssi", $searchName, $searchName, $userID);
+        $stmt->bind_param("ssssi", $searchName, $searchName, $searchName, $searchName, $userID);
 
         if ($stmt->execute())
         {

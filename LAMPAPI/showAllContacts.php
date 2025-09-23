@@ -17,7 +17,7 @@
             $conn->close(); exit;
         }
 
-        $stmt->bind_param("ssi", $searchName, $searchName, $userID);
+        $stmt->bind_param("i", $userID);
 
         if ($stmt->execute())
         {
