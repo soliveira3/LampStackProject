@@ -1,7 +1,7 @@
 <?php
 
     $inData = getRequestInfo();
-    $searchTerm = $inData["searchTerm"];
+    $searchName = $inData["searchName"];
     $userID     = $inData["userID"];
 
     // Connecting to the Database
@@ -10,10 +10,14 @@
 
     else
     {
+        $searchTerm = "%" . $searchName . "%";
         $stmt = $conn->prepare("
-            SELECT *
-            FROM Contacts
-            WHERE (FirstName LIKE ? OR LastName LIKE ? OR Phone LIKE ? OR Email LIKE ?) 
+            SELECT * 
+            FROM Contacts 
+            WHERE (FirstName LIKE ? 
+                OR LastName LIKE ? 
+                OR Phone LIKE ? 
+                OR Email LIKE ?) 
             AND UserID = ?
         ");
 
