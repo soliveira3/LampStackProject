@@ -273,21 +273,33 @@ function doLogout() {
     window.location.href = "index.html";
 }
 
+
 function addContact() {
-    let newFirstName = document.getElementById("contactFirstName").value;
-    let newLastName = document.getElementById("contactLastName").value;
-    let newPhone = document.getElementById("contactPhone").value;
-    let newEmail = document.getElementById("contactEmail").value;
-    document.getElementById("contactAddResult").innerHTML = "";
+    const firstNameEl = document.getElementById("contactFirstName");
+    const lastNameEl = document.getElementById("contactLastName");
+    const phoneEl = document.getElementById("contactPhone");
+    const emailEl = document.getElementById("contactEmail");
+    const resultEl = document.getElementById("contactAddResult");
+
+    if (!firstNameEl || !lastNameEl || !phoneEl || !emailEl || !resultEl) {
+        console.error("One or more contact form elements are missing.");
+        if (resultEl) resultEl.innerHTML = "Missing fields";
+        return;
+    }
+
+    let newFirstName = firstNameEl.value;
+    let newLastName = lastNameEl.value;
+    let newPhone = phoneEl.value;
+    let newEmail = emailEl.value;
+    resultEl.innerHTML = "";
 
     if (newFirstName.trim() === "" || newLastName === "") {
-        document.getElementById("contactAddResult").innerHTML = "First and Last Name Required";
+        resultEl.innerHTML = "First and Last Name Required";
         return;
     }
 
     // Add contact to local array with new structure
-    let newContact =
-    {
+    let newContact = {
         id: nextContactId++,
         userId: userId, // Use current logged-in user's ID
         firstName: newFirstName,
