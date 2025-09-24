@@ -193,6 +193,7 @@ nav a:hover {
 
 /* Info cards (API/Auth/Database cards) */
 .cards {
+  width: 388;
   margin: 22px 0;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -624,6 +625,7 @@ input[type="tel"]::placeholder {
 
 /* Grid layout for contacts */
 .contacts-grid {
+  width: 344;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 16px;
