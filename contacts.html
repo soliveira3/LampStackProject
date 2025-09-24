@@ -1,197 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <title>Contact Manager — Contacts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Poosd Project" />
     <link rel="stylesheet" href="css/styles.css" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Ubuntu"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" />
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        readCookie();
-        const s = document.getElementById("searchText");
-        if (s) s.focus();
-      });
+        document.addEventListener("DOMContentLoaded", function () {
+            readCookie();
+            const s = document.getElementById("searchText");
+            if (s) s.focus();
+        });
     </script>
-  </head>
+</head>
 
-  <body>
+<body>
     <!-- background stuff (SVG waves) -->
-    <svg
-      class="bg-waves"
-      viewBox="0 0 100 100"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      <!-- black background -->
-      <rect x="0" y="0" width="100" height="100" fill="#0b0b0b" />
-      <!-- left grey wave -->
-      <path
-        d="M0,0 L10,0 C12,8 10,18 11,27 C12,36 16,39 18,45 C20,51 19,58 16,66 C14,72 12,78 15,86 L0,86 Z"
-        fill="#6b7280"
-        opacity="1.00"
-      />
-      <!-- left green wave -->
-      <path
-        d="M0,0 L5,0 C6,7 5,16 5,25 C5,35 8,41 9,48 C10,55 9,62 7,70 C6,76 6,83 6,90 L0,100 Z"
-        fill="#00CC00"
-      />
-      <!-- bottom grey shelf -->
-      <path
-        d="M0,86 C20,86 38,83 52,83 C65,83 75,86 85,91 C90,93 95,96 100,100 L0,100 Z"
-        fill="#6b7280"
-        opacity="1.00"
-      />
-      <!-- bottom green bump -->
-      <path
-        d="M0,94 C28,92 43,90 60,92 C76,94 90,98 100,100 L0,100 Z"
-        fill="#00CC00"
-      />
-      <!-- bottom green bump overlay -->
-      <path
-        d="M0,0 L5,0 C6,7 5,16 5,25 C5,35 8,41 9,48 C10,55 9,62 7,70 C6,76 6,90 6,90 L0,400 Z"
-        fill="#00CC00"
-      />
+    <svg class="bg-waves" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <!-- black background -->
+        <rect x="0" y="0" width="100" height="100" fill="#0b0b0b" />
+        <!-- left grey wave -->
+        <path d="M0,0 L10,0 C12,8 10,18 11,27 C12,36 16,39 18,45 C20,51 19,58 16,66 C14,72 12,78 15,86 L0,86 Z"
+            fill="#6b7280" opacity="1.00" />
+        <!-- left green wave -->
+        <path d="M0,0 L5,0 C6,7 5,16 5,25 C5,35 8,41 9,48 C10,55 9,62 7,70 C6,76 6,83 6,90 L0,100 Z" fill="#00CC00" />
+        <!-- bottom grey shelf -->
+        <path d="M0,86 C20,86 38,83 52,83 C65,83 75,86 85,91 C90,93 95,96 100,100 L0,100 Z" fill="#6b7280"
+            opacity="1.00" />
+        <!-- bottom green bump -->
+        <path d="M0,94 C28,92 43,90 60,92 C76,94 90,98 100,100 L0,100 Z" fill="#00CC00" />
+        <!-- bottom green bump overlay -->
+        <path d="M0,0 L5,0 C6,7 5,16 5,25 C5,35 8,41 9,48 C10,55 9,62 7,70 C6,76 6,90 6,90 L0,400 Z" fill="#00CC00" />
     </svg>
 
     <!-- Header -->
     <header class="site-header">
-      <div class="brand">POOS25</div>
-      <div
-        id="userName"
-        class="subtle-status"
-        style="margin-left: 1rem; color: #fff"
-      ></div>
-      <nav>
-        <a href="/">Home</a>
-        <a href="https://github.com/soliveira3/LampStackProject" target="_blank"
-          >Github</a
-        >
-        <a href="#">Temp</a>
-        <a class="btn-outline" href="/contacts.html">Docs</a>
-        <a class="btn-solid" href="#" onclick="doLogout()">Log Out</a>
-      </nav>
+        <div class="brand">POOS25</div>
+        <div id="userName" class="subtle-status" style="margin-left: 1rem; color: #fff"></div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="https://github.com/soliveira3/LampStackProject" target="_blank">Github</a>
+            <a class="btn-outline" href="/contacts.html">Docs</a>
+            <a class="btn-solid" href="#" onclick="doLogout()">Log Out</a>
+        </nav>
     </header>
 
     <!-- Page content -->
     <main class="contact-hero">
-      <!-- Top card (title + quick actions) -->
-      <section class="contact-hero-card">
-        <h1>Contacts</h1>
-        <p>Search Contact by First Name, Last Name, Phone Number, or Email</p>
+        <!-- Top card (title + quick actions) -->
+        <section class="contact-hero-card">
+            <h1>Contacts</h1>
+            <p>Search Contact by First Name, Last Name, Phone Number, or Email</p>
 
-        <div class="actions">
-          <!-- I kept most of the existing IDs & handlers so the JS continues to work -->
-          <input type="text" id="searchText" class="input-chunk" />
-          <!-- TODO Should we add placehold text
-				<input type="text" id="searchText" class="input-chunk" placeholder="Search contacts by name, phone, or email"> -->
-          <button
-            type="button"
-            id="searchContactButton"
-            class="btn-outline"
-            onclick="searchContact()"
-          >
-            Search
-          </button>
-          <button
-            type="button"
-            id="showAllButton"
-            class="btn-ghost"
-            onclick="showAllContacts()"
-          >
-            Show All
-          </button>
-          <!-- Maybe open the add form card below -->
-          <a
-            class="btn-solid"
-            href="#add-card"
-            onclick="document.getElementById('add-card').scrollIntoView({behavior:'smooth'});"
-            >Add New</a
-          >
-        </div>
+            <div class="actions">
+                <!-- I kept most of the existing IDs & handlers so the JS continues to work -->
+                <!-- <input type="text" id="searchText" class="input-chunk" /> -->
+                <input type="text" id="searchText" class="input-chunk" placeholder="Name, Phone, or Email">
+                <button type="button" id="searchContactButton" class="btn-outline" onclick="searchContact()">
+                    Search
+                </button>
+                <button type="button" id="showAllButton" class="btn-ghost" onclick="showAllContacts()">
+                    Show All
+                </button>
+                <!-- Maybe open the add form card below -->
+                <a class="btn-solid" href="#add-card"
+                    onclick="document.getElementById('add-card').scrollIntoView({behavior:'smooth'});">Add New</a>
+            </div>
 
-        <!-- Chips for quick filters (purely cosmetic atm, wire to the JS if we want) -->
-        <ul class="features">
-          <li class="chip" onclick="showAllContacts()">All</li>
-          <li class="chip">Recently added</li>
-          <li class="chip">With email</li>
-          <li class="chip">With phone</li>
-        </ul>
+            <!-- Chips for quick filters (purely cosmetic atm, wire to the JS if we want) -->
+            <ul class="features">
+                <li class="chip" onclick="showAllContacts()">All</li>
+                <li class="chip">Recently added</li>
+                <li class="chip">With email</li>
+                <li class="chip">With phone</li>
+            </ul>
 
-        <!-- Search results status -->
-        <div id="contactSearchResult" class="subtle-status"></div>
-      </section>
+            <!-- Search results status -->
+            <div id="contactSearchResult" class="subtle-status"></div>
+        </section>
 
-      <!-- Results area (your JS will inject rows into #contactList) -->
-      <section class="cards contacts-card">
-        <div class="card">
-          <h3>Results</h3>
-          <div id="contactList" class="contacts-grid">
-            <!-- The code.js should populate this area with contacts -->
-          </div>
-        </div>
-      </section>
+        <!-- Results area (your JS will inject rows into #contactList) -->
+        <section class="cards contacts-card">
+            <div class="card">
+                <h3>Results</h3>
+                <div id="contactList" class="contacts-grid">
+                    <!-- The code.js should populate this area with contacts -->
+                </div>
+            </div>
+        </section>
 
-      <!-- Add Contact -->
-      <section id="add-card" class="contact-hero-card">
-        <h2>Add a contact</h2>
-        <p class="login-sub">
-          Use the form below to add a new person to your list.
-        </p>
+        <!-- Add Contact -->
+        <section id="add-card" class="contact-hero-card">
+            <h2>Add a contact</h2>
+            <p class="login-sub">
+                Use the form below to add a new person to your list.
+            </p>
 
-        <form
-          class="contact-form"
-          onsubmit="event.preventDefault(); addContact();"
-        >
-          <div class="form-row">
-            <label>
-              <span>First Name</span>
-              <input type="text" id="contactFirstName" required />
-            </label>
-            <label>
-              <span>Last Name</span>
-              <input type="text" id="contactLastName" required />
-            </label>
-          </div>
-          <div class="form-row">
-            <label>
-              <span>Phone</span>
-              <input
-                type="tel"
-                id="contactPhone"
-                placeholder="(555) 123-4567"
-              />
-            </label>
-            <label>
-              <span>Email</span>
-              <input
-                type="email"
-                id="contactEmail"
-                placeholder="email@example.com"
-              />
-            </label>
-          </div>
-          <button type="submit" id="addContactButton" class="btn-solid">
-            Add Contact
-          </button>
-          <div id="contactAddResult" class="subtle-status"></div>
-        </form>
-      </section>
+            <form class="contact-form" onsubmit="event.preventDefault(); addContact();">
+                <div class="form-row">
+                    <label>
+                        <span>First Name</span>
+                        <input type="text" id="contactFirstName" required placeholder="First Name" />
+                    </label>
+                    <label>
+                        <span>Last Name</span>
+                        <input type="text" id="contactLastName" required placeholder="Last Name" />
+                    </label>
+                </div>
+                <div class="form-row">
+                    <label>
+                        <span>Phone</span>
+                        <input type="tel" id="contactPhone" placeholder="(555) 123-4567" />
+                    </label>
+                    <label>
+                        <span>Email</span>
+                        <input type="email" id="contactEmail" placeholder="email@example.com" />
+                    </label>
+                </div>
+                <button type="submit" id="addContactButton" class="btn-solid">
+                    Add Contact
+                </button>
+                <div id="contactAddResult" class="subtle-status"></div>
+            </form>
+        </section>
     </main>
 
     <footer class="site-footer">
-      <p>Group 12 Lamp Project <span id="year"></span></p>
+        <p>Group 12 Lamp Project <span id="year"></span></p>
     </footer>
 
     <script src="js/code.js"></script>
 
     <script>
-      // tiny enhancement: show current year, keep page feeling alive
-      document.getElementById("year").textContent = new Date().getFullYear();
+        // tiny enhancement: show current year, keep page feeling alive
+        document.getElementById("year").textContent = new Date().getFullYear();
     </script>
-  </body>
+</body>
+
 </html>
