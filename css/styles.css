@@ -617,6 +617,8 @@ input[type="tel"]::placeholder {
 
 /* wrap the results list with consistent spacing */
 .contacts-card .card {
+  width: 900px;
+  max-width: 95%;
   padding: 18px 18px 6px;
 }
 
