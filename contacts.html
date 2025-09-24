@@ -43,7 +43,6 @@
         <nav>
             <a href="/">Home</a>
             <a href="https://github.com/soliveira3/LampStackProject" target="_blank">Github</a>
-            <a class="btn-outline" href="/contacts.html">Docs</a>
             <a class="btn-solid" href="#" onclick="doLogout()">Log Out</a>
         </nav>
     </header>
@@ -70,20 +69,12 @@
                     onclick="document.getElementById('add-card').scrollIntoView({behavior:'smooth'});">Add New</a>
             </div>
 
-            <!-- Chips for quick filters (purely cosmetic atm, wire to the JS if we want) -->
-            <ul class="features">
-                <li class="chip" onclick="showAllContacts()">All</li>
-                <li class="chip">Recently added</li>
-                <li class="chip">With email</li>
-                <li class="chip">With phone</li>
-            </ul>
-
             <!-- Search results status -->
             <div id="contactSearchResult" class="subtle-status"></div>
         </section>
 
         <!-- Results area (your JS will inject rows into #contactList) -->
-        <section class="cards contacts-card">
+        <section class="contact-hero-card">
             <div class="card">
                 <h3>Results</h3>
                 <div id="contactList" class="contacts-grid">
