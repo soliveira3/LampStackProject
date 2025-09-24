@@ -10,8 +10,16 @@
 
     else
     {
-        $stmt = $conn->prepare
-        ("SELECT * from Contacts WHERE (FirstName = ? OR LastName = ? OR Phone = ? OR Email = ?) AND UserID = ?");
+        $searchTerm = "%" . $searchName . "%";
+        $stmt = $conn->prepare("
+            SELECT * 
+            FROM Contacts 
+            WHERE (FirstName LIKE ? 
+                OR LastName LIKE ? 
+                OR Phone LIKE ? 
+                OR Email LIKE ?) 
+            AND UserID = ?
+        ");
 
         if (!$stmt)
         {
@@ -20,7 +28,7 @@
             exit;
         }
 
-        $stmt->bind_param("ssssi", $searchName, $searchName, $searchName, $searchName, $userID);
+        $stmt->bind_param("ssssi", $searchTerm, $searchTerm, $searchTerm, $searchTerm, $userID);
 
         if ($stmt->execute())
         {
