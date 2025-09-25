@@ -204,7 +204,7 @@ a.btn-solid[onclick*="doLogout"] {
   margin: 22px 0;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  gap: 1px;
 }
 
 .card {
@@ -217,6 +217,11 @@ a.btn-solid[onclick*="doLogout"] {
 }
 
 .card h3 {
+  margin: 0 0 6px;
+  color: var(--text);
+}
+
+.card h2 {
   margin: 0 0 6px;
   color: var(--text);
 }
